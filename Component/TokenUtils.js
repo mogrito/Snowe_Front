@@ -33,7 +33,7 @@ export const getTokens = async (requestData, navigation) => {
     alert("알 수 없는 오류");
   } finally {
     // MainView의 useEffect를 다시 실행하도록 navigation을 이용하여 이동
-    navigation.navigate('MainView');
+    navigation.pop();
   }
 };
 

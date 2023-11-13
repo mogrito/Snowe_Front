@@ -43,11 +43,11 @@ const TeacherMyPageScreen = () => {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem('Tokens');
-    navigation.navigate('MainView');
+    navigation.pop();
   };
 
   const onGoBack = () => {
-    navigation.navigate('MainView');
+    navigation.pop();
   };
 
   const DeleteUserPage = () => {

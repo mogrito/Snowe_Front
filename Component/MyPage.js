@@ -45,14 +45,14 @@ const MyPageScreen = () => {
     try {
       await AsyncStorage.removeItem('Tokens');
       await AsyncStorage.removeItem('role');
-      navigation.navigate('MainView');
+      navigation.pop();
     } catch (error) {
       console.error('AsyncStorage에서 아이템을 제거하는 중 오류 발생:', error);
     }
   };
 
   const onGoBack = () => {
-    navigation.navigate('MainView');
+    navigation.pop();
   };
 
   const DeleteUserPage = () => {

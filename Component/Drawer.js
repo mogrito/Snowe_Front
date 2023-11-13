@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
@@ -5,15 +6,19 @@ import { MaterialCommunityIcons, FontAwesome, Foundation } from '@expo/vector-ic
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { getTokenFromLocal } from './TokenUtils';
+import { checkTokenAndNavigate } from './TokenUtils';
 
 export function CustomDrawerContent({ navigation }) {
   const [userRole, setUserRole] = useState(null);
+  const [userName, setUserName] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const storedRole = await AsyncStorage.getItem('role');
+        const storedName = await AsyncStorage.getItem('name');
         setUserRole(storedRole || 'Guest');
+        setUserName(storedName || null);
         console.log('AsyncStorage에서 저장된 역할:', storedRole);
       } catch (error) {
         console.error('AsyncStorage에서 역할을 가져오는 중 오류 발생:', error);
@@ -34,6 +39,7 @@ export function CustomDrawerContent({ navigation }) {
           const data = await response.json();
           console.log(data);
           AsyncStorage.setItem('role', data.role);
+          AsyncStorage.setItem('name', data.name);
           fetchData(); // AsyncStorage에서 역할을 업데이트한 후 역할을 가져오기
         } else {
           throw new Error('사용자 역할을 가져오는 데 실패했습니다.');
@@ -41,6 +47,7 @@ export function CustomDrawerContent({ navigation }) {
       } catch (error) {
         console.error(error);
         AsyncStorage.setItem('role', 'Guest');
+        AsyncStorage.setItem('name', null);
         fetchData(); // AsyncStorage에서 역할을 업데이트한 후 역할을 가져오기
       }
     };
@@ -55,7 +62,6 @@ export function CustomDrawerContent({ navigation }) {
     };
   }, [navigation]);
 
-
   return (
     <DrawerContentScrollView>
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 19 }}>
@@ -63,11 +69,17 @@ export function CustomDrawerContent({ navigation }) {
           source={require('../Images/UserIcon.jpg')}
           style={{ width: 72, height: 72, borderRadius: 36 }}
         />
-        <TouchableOpacity onPress={() => checkTokenAndNavigate(navigation)}>
+        {userRole === 'Guest' || !userName ? (
+          <TouchableOpacity onPress={() => checkTokenAndNavigate(navigation)}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>
+              로그인하기
+            </Text>
+          </TouchableOpacity>
+        ) : (
           <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>
-            로그인하기
+            {userName} 님
           </Text>
-        </TouchableOpacity>
+        )}
       </View>
       <DrawerItem
         label={userRole === 'TEACHER' ? '강사 마이페이지' : (userRole === 'Guest' || userRole === null) ? '마이페이지' : '마이페이지'}
@@ -105,13 +117,6 @@ export function CustomDrawerContent({ navigation }) {
           <FontAwesome name="id-card-o" color={color} size={size} />
         )}
         onPress={() => navigation.navigate('TeacherVerify')}
-      />
-      <DrawerItem
-        label="강습 등록"
-        icon={({ color, size }) => (
-          <Foundation name="page-edit" color={color} size={size} />
-        )}
-        onPress={() => navigation.navigate('LessonSignUp')}
       />
     </DrawerContentScrollView>
   );
