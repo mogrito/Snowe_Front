@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, Modal, Image, Dimen
 import { Calendar } from 'react-native-calendars';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import TransparentCircleButton from './TransparentCircleButton';
-import { getTokens } from './TokenUtils';
+import { getTokenFromLocal } from './TokenUtils';
 
 
 const windowWidth = Dimensions.get('window').width;
