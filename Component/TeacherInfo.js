@@ -23,6 +23,12 @@ const imagedata = [
   { id: '3', image: require('../Images/snowee.jpg') },
 ]
 
+const teacherImageData = [
+  { name: '장원빈', image: require('../Images/face.jpg') },
+  { name: '고아성', image: require('../Images/face1.jpg') },
+  { name: '홍주성', image: require('../Images/face2.jpg') },
+]
+
 const TeacherInfoScreen = () => {
   const [teachers, setTeachers] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -291,7 +297,7 @@ const styles = StyleSheet.create({
     marginTop: 3
   },
   subjectText: {
-    fontSize: 14,
+    fontSize: 16,
     marginTop: 3,
   },
   cancelButton: {
