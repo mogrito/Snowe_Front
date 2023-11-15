@@ -8,6 +8,13 @@ import { checkTokenAndNavigate } from './TokenUtils';
 
 const windowWidth = Dimensions.get('window').width;
 
+const faceImage = 
+  { 김희찬: require('../Images/face.jpg') ,
+    홍주성: require('../Images/face1.jpg'), 
+    장원빈: require('../Images/face2.jpg') ,
+    김정훈: require('../Images/face3.jpg') ,
+  };
+
 const TeacherReserveScreen = () => {
   const isFocused = useIsFocused();
   const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -203,7 +210,7 @@ const TeacherReserveScreen = () => {
               >
                 <View style={styles.teacherInfo}>
                   <View style={styles.teacherImageView}>
-                    <Image source={{ uri: item.image }} style={styles.teacherImage} />
+                  <Image style={styles.teacherImage} source={faceImage[item.name]} />
                   </View>
                   <View style={styles.nameDivView}>
                     <Text style={styles.teacherName}>{item.name}</Text>
@@ -228,7 +235,7 @@ const TeacherReserveScreen = () => {
         <View style={styles.modalContainer}>
           <Text style={styles.reservationTitle}>예약 확인</Text>
           <View style={styles.centerView}>
-            <Image source={{ uri: selectedTeacher?.image }} style={styles.teacherModalImage} />
+          <Image style={styles.teacherModalImage} source={faceImage[selectedTeacher?.name]} />
             <Text style={styles.teacherModalName}>{`${selectedTeacher?.name} 강사님`}</Text>
             <TouchableOpacity
               style={styles.teacherDetail}
@@ -383,8 +390,8 @@ const styles = StyleSheet.create({
   },
 
   teacherModalImage: {
-    width: 200,
-    height: 200,
+    width: 170,
+    height: 170,
     borderRadius: 200,
     marginTop: 10,
     marginBottom: 20,
@@ -434,6 +441,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 10,
     justifyContent: 'center',
+    marginBottom:70,
   },
   cancelButton: {
     width: '30%',
