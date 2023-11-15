@@ -8,6 +8,15 @@ import { useNavigation } from '@react-navigation/native';
 import { getTokenFromLocal } from './TokenUtils';
 import { checkTokenAndNavigate } from './TokenUtils';
 
+
+const faceImage = 
+  { 김희찬: require('../Images/face.jpg') ,
+    홍주성: require('../Images/face1.jpg'), 
+    장원빈: require('../Images/face2.jpg') ,
+    김정훈: require('../Images/face3.jpg') ,
+  };
+
+
 export function CustomDrawerContent({ navigation }) {
   const [userRole, setUserRole] = useState(null);
   const [userName, setUserName] = useState(null);
@@ -65,10 +74,18 @@ export function CustomDrawerContent({ navigation }) {
   return (
     <DrawerContentScrollView>
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 19 }}>
-        <Image
-          source={require('../Images/UserIcon.jpg')}
-          style={{ width: 72, height: 72, borderRadius: 36 }}
-        />
+        {userRole === 'Guest' ? (
+          <Image
+            source={require('../Images/UserIcon.jpg')}
+            style={{ width: 72, height: 72, borderRadius: 36 }}
+          />
+        ) : (
+          <Image
+            style={{ width: 72, height: 72, borderRadius: 36 }}
+            source={faceImage[userName] || require('../Images/UserIcon.jpg')}
+          />
+        )}
+
         {userRole === 'Guest' || !userName ? (
           <TouchableOpacity onPress={() => checkTokenAndNavigate(navigation)}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>

@@ -23,11 +23,35 @@ const imagedata = [
   { id: '3', image: require('../Images/snowee.jpg') },
 ]
 
-const teacherImageData = [
-  { name: '장원빈', image: require('../Images/face.jpg') },
-  { name: '고아성', image: require('../Images/face1.jpg') },
-  { name: '홍주성', image: require('../Images/face2.jpg') },
-]
+const faceImage = 
+  { 김희찬: require('../Images/face.jpg') ,
+    홍주성: require('../Images/face1.jpg'), 
+    장원빈: require('../Images/face2.jpg') ,
+    김정훈: require('../Images/face3.jpg') ,
+  };
+  
+  const swiperimage1 = {
+    김희찬: [
+      require('../Images/skigosu.jpg'),
+      require('../Images/skigosu1.jpg'),
+      require('../Images/skigosu2.jpg'),
+    ],
+    홍주성: [
+      require('../Images/skigosu3.jpg'),
+      require('../Images/skigosu4.jpg'),
+      require('../Images/skigosu5.jpg'),
+    ],
+    장원빈: [
+      require('../Images/Snowboard.jpg'),
+      require('../Images/snowboard1.jpg'),
+      require('../Images/snowboard2.jpg'),
+    ],
+    김정훈: [
+      require('../Images/skigosu6.jpg'),
+      require('../Images/skigousu7.jpg'),
+      require('../Images/skigosu8.jpg'),
+    ],
+  };
 
 const TeacherInfoScreen = () => {
   const [teachers, setTeachers] = useState([]);
@@ -120,7 +144,7 @@ const TeacherInfoScreen = () => {
         renderItem={({ item }) => (
           <View style={styles.item}>
             <View style={styles.teacherContent}>
-              <Image source={item.image} style={styles.teacherImage} />
+            <Image style={styles.teacherImage} source={faceImage[item.name]} />
               <View style={styles.textContainer}>
                 <View style={styles.headerimage}>
                   <Text style={styles.itemText}>{item.name}</Text>
@@ -149,7 +173,7 @@ const TeacherInfoScreen = () => {
             <ScrollView style={styles.modalContent}>
               <View style={styles.modalinfoimage}>
                 {/* Teacher's basic information */}
-                <Image source={selectedTeacher.image} style={styles.modalTeacherImage} />
+                <Image style={styles.modalTeacherImage} source={faceImage[selectedTeacher.name]} />
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 40 }}>
                   <Text style={styles.modalItemText}>{selectedTeacher.name}</Text>
                   <View style={[styles.badge1, { backgroundColor: levelColors[selectedTeacher.classLevel] }]}>
@@ -168,7 +192,7 @@ const TeacherInfoScreen = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                   <View style={styles.swiperSlide}>
-                    <Image source={item.image} style={styles.swiperImage} />
+                    <Image style={styles.swiperImage} source={swiperimage1[selectedTeacher.name][parseInt(item.id) - 1]} />
                   </View>
                 )}
               />

@@ -7,6 +7,12 @@ import { getInfo } from './TokenUtils';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 
+const faceImage = 
+  { 김희찬: require('../Images/face.jpg') ,
+    홍주성: require('../Images/face1.jpg'), 
+    장원빈: require('../Images/face2.jpg') ,
+    김정훈: require('../Images/face3.jpg') ,
+  };
 
 const MyPageScreen = () => {
   const navigation = useNavigation();
@@ -112,7 +118,7 @@ const MyPageScreen = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.profileContainer}>
-          <Image source={user.image} style={styles.profileImage} />
+        <Image style={styles.profileImage} source={faceImage[user.name]} />
           <View style={styles.userInfoContainer}>
           <Text style={styles.userName}>{user.name}</Text>
           <Text style={styles.userEmail}>{user.email}</Text>
