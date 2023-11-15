@@ -20,7 +20,6 @@ const MyPageScreen = () => {
   const [user, setUser] = useState({
     name: '',
     email: '',
-    image: require('../Images/face.jpg'),
   });
 
   useEffect(() => {
